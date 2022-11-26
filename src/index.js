@@ -5,7 +5,6 @@ const detailTitle = document.querySelector("#detail-title")
 const detailScore = document.querySelector("#detail-high-score")
 
 const scoreForm  = document.querySelector("#high-score-form")
-const scoreInput = document.querySelector("#score-input")
 
 let currentGame = {}
 
@@ -14,7 +13,7 @@ fetch(`http://localhost:3000/games`)
     .then((gameArray) => {
         updateTitles(gameArray)
         displayDetais(gameArray[0])
-        updateScore(gameArray)
+        updateScore()
     })
 
 //Challenge 1
@@ -44,16 +43,15 @@ function titleEvent(gameTitle, game) {
 }
 
 // Challenge 4
-function updateScore(gameArray) {
+function updateScore() {
     scoreForm.addEventListener("submit", (event) => {
         event.preventDefault()
 
         // Update high score on DOM
-        console.log(scoreInput.value)
-        detailScore.textContent = scoreInput.value
+        detailScore.textContent = event.target['score-input'].value
 
         // Update high score internally
-        currentGame.high_score = scoreInput.value
+        currentGame.high_score = event.target['score-input'].value
 
         scoreForm.reset()
     })       
